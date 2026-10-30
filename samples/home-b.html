@@ -361,13 +361,13 @@ html[data-mark=e] nav .brand.wm .wm-v2:not(.wm-v2e){display:none}
 
 .f-pap{fill:color-mix(in srgb,var(--gc) 3%,#fbfcfe)}
 .f-gmi{opacity:.065}.f-gma{opacity:.1}
-</style><style>/* THROWAWAY (t234) transition B: empty wall with fixtures, each light comes on left to right, its frame fades in and settles up 6px, labels last */
-@keyframes hbF{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
-@keyframes hbL{from{opacity:0;transform:translateY(3px)}to{opacity:1;transform:none}}
-html.hb-in .g4-it:not(.hb-f) .g4-fr{opacity:0}
-html.hb-in:not(.hb-l) .g4-pl{opacity:0}
-html.hb-in .g4-it.hb-f .g4-fr{animation:hbF .55s cubic-bezier(.2,.7,.2,1) backwards}
-html.hb-in.hb-l .g4-pl{animation:hbL .35s ease-out backwards}
+</style><style>/* THROWAWAY (t234/t235) transition B: wall, fixtures, frames and name plates are there from the start.
+   Each light comes on left to right; once it is on, that frame's art and the plate's name fade in. */
+@keyframes hbA{from{opacity:0;transform:scale(.985)}to{opacity:1;transform:none}}
+@keyframes hbN{from{opacity:0}to{opacity:1}}
+html.hb-in .g4-it:not(.hb-f) .g4-art,html.hb-in .g4-it:not(.hb-f) .g4-nm{opacity:0}
+html.hb-in .g4-it.hb-f .g4-art{animation:hbA .6s cubic-bezier(.2,.7,.2,1) backwards}
+html.hb-in .g4-it.hb-f .g4-nm{animation:hbN .45s ease-out .12s backwards}
 .g4-it.hb-lit .g4-lt>span{opacity:1}
 .g4-it.hb-lit .g4-lt .bar::after{animation:bulb .3s linear both}
 html.hb-in .g4-row{pointer-events:none}
@@ -538,7 +538,6 @@ const want=H+Math.min(80,Math.max(24,(vh()-H-(bot-top))/2));g.style.paddingTop=(
 place();addEventListener('resize',()=>{if(innerWidth!==w)place()});addEventListener('orientationchange',()=>setTimeout(place,250));document.fonts&&document.fonts.ready.then(place)})();
 </script><script>(function(){const h=document.documentElement;if(!h.classList.contains('hb-in'))return;
  const it=[...document.querySelectorAll('.g4-it')],T=(f,ms)=>setTimeout(f,ms);
- it.forEach((e,i)=>{const t=80+i*200;T(()=>e.classList.add('hb-lit'),t);T(()=>e.classList.add('hb-f'),t+90);T(()=>e.classList.remove('hb-lit'),t+620)});
- T(()=>h.classList.add('hb-l'),80+(it.length-1)*200+380);
- T(()=>h.classList.remove('hb-in'),1500)})();
+ it.forEach((e,i)=>{const t=150+i*320;T(()=>e.classList.add('hb-lit'),t);T(()=>e.classList.add('hb-f'),t+180);T(()=>e.classList.remove('hb-lit'),t+900)});
+ T(()=>h.classList.remove('hb-in'),150+(it.length-1)*320+1100)})();
 </script></body></html>
