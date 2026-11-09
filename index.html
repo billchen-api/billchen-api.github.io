@@ -368,6 +368,59 @@ html.hb-in .g4-it.hb-f .g4-nm{animation:hbN .45s ease-out .12s backwards}
 .g4-it.hb-lit .g4-lt>span{opacity:1}
 .g4-it.hb-lit .g4-lt .bar::after{animation:bulb .3s linear both}
 html.hb-in .g4-row{pointer-events:none}
+/* t316 (from test page t313): talking avatar + chat bubble */
+.sr{position:absolute!important;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+.f-face{position:absolute;inset:0;pointer-events:none;z-index:0}
+.f-av img.f-o{position:absolute;left:0;bottom:0;width:100%;height:auto;border-radius:0;object-fit:fill;opacity:0;pointer-events:none}
+.f-ch[data-mouth="1"] .f-m1,.f-ch[data-mouth="2"] .f-m2,.f-ch[data-eyes="half"] .f-eh,.f-ch[data-eyes="shut"] .f-es{opacity:1}
+.un{color:transparent}
+.f-ch.saying .f-cta{visibility:hidden;opacity:0}
+.f-ch.said .f-cta{transition:opacity .3s}
+.f-ch.chat .f-cta{display:none}
+.f-x{display:none;position:absolute;top:12px;right:12px;z-index:2;width:30px;height:30px;padding:0;border:0;border-radius:50%;background:#f2f3f5;color:#1d1d1f;cursor:pointer;align-items:center;justify-content:center}
+.f-x:hover{background:#e6e8ec}.f-x:focus{outline:none}.f-x:focus-visible{outline:2px solid #0569c0;outline-offset:2px}
+.f-ch.pin .f-x{display:inline-flex}
+.f-log:empty{display:none}
+.f-log{margin-top:16px;padding-top:14px;border-top:1px solid #eceef1;display:flex;flex-direction:column;gap:10px}
+.f-msg{max-width:88%;font-size:15px;line-height:1.5;color:#16181c;overflow-wrap:anywhere;white-space:pre-wrap}
+.f-msg p{margin:0}.f-msg p+p{margin-top:4px}
+.f-msg a{color:#0569c0}
+.f-msg.bot{align-self:flex-start}
+.f-msg.me{align-self:flex-end;padding:8px 13px;border-radius:14px 14px 4px 14px;background:#111317;color:#fff;font-size:14.5px}
+.f-qr{display:flex;gap:8px;flex-wrap:wrap}
+.f-qr button{font:inherit;font-size:14px;font-weight:600;padding:8px 13px;border-radius:9px;border:1px solid #d9dce1;background:#fff;color:#111317;cursor:pointer}
+.f-qr button:hover{border-color:#0569c0;color:#0569c0}
+.f-in{display:flex;align-items:flex-end;gap:8px;margin-top:14px}
+.f-in[hidden]{display:none}
+.f-in .hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
+.f-tx{flex:1;min-width:0;box-sizing:border-box;font:inherit;font-size:16px;line-height:1.4;padding:10px 13px;border:1px solid #d9dce1;border-radius:11px;background:#fff;color:#111317;resize:none}
+.f-tx[hidden]{display:none}
+.f-tx:focus{outline:none;border-color:#0569c0;box-shadow:0 0 0 3px rgba(5,105,192,.14)}
+.f-send{flex:none;width:42px;height:42px;border:0;border-radius:11px;background:#111317;color:#fff;display:inline-flex;align-items:center;justify-content:center;cursor:pointer}
+.f-send:hover{background:#0569c0}.f-send svg{width:16px;height:16px}
+.f-send:focus{outline:none}.f-send:focus-visible{outline:2px solid #0569c0;outline-offset:2px}
+/* once a chat starts the bubble becomes a thread with its own scroll */
+.f-ch.chat .f-bub{display:flex;flex-direction:column;max-height:min(640px,calc(100dvh - 150px))}
+.f-ch.chat .f-sc{flex:1 1 auto;min-height:0;overflow:auto;overscroll-behavior:contain;margin:0 -12px;padding:0 12px;scrollbar-width:thin}
+.f-ch.chat .f-hi{padding-right:34px}
+.f-ch.chat .f-sc{-webkit-mask-image:linear-gradient(transparent,#000 22px);mask-image:linear-gradient(transparent,#000 22px);padding-top:6px}
+@media(max-width:700px){.f-ch.chat .f-bub{max-height:calc(100dvh - var(--av,70px) - 130px)}}
+@media(prefers-reduced-motion:reduce){.f-av img.f-o{display:none}.f-ch.said .f-cta{transition:none}}
+
+/* contact form as one chat message card */
+.f-card{align-self:stretch;display:flex;flex-direction:column;gap:10px;padding:14px;border:1px solid #e6e8ec;border-radius:14px;background:#fafbfc}
+.f-card .hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
+.f-fl{display:flex;flex-direction:column;gap:5px}
+.f-fl span{font-size:13.5px;font-weight:600;color:#1d1d1f}
+.f-fl input,.f-fl textarea{box-sizing:border-box;width:100%;font:inherit;font-size:16px;line-height:1.4;padding:9px 12px;border:1px solid #d9dce1;border-radius:10px;background:#fff;color:#111317;resize:vertical}
+.f-fl textarea{min-height:92px}
+.f-fl input:focus,.f-fl textarea:focus{outline:none;border-color:#0569c0;box-shadow:0 0 0 3px rgba(5,105,192,.14)}
+.f-fl.bad input,.f-fl.bad textarea{border-color:#c4352b}
+.f-fl .er{font-style:normal;font-size:13px;line-height:1.35;color:#b3261e}
+.f-fl .er:empty{display:none}
+.f-ca{display:flex;justify-content:flex-end}
+.f-card.done{opacity:.75}.f-card.done .f-ca{display:none}
+.f-card.done input,.f-card.done textarea{background:#f4f5f7}
 </style><link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48"><link rel="icon" href="/assets/brand/fav-fb2.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="/apple-touch-icon.png"></head><body id="top" class="g4b">
 <div class="pt" aria-hidden="true"><canvas></canvas></div><nav data-bc><div class="w"><a class="brand wm" href="#top" data-label="Index" aria-label="Bill Chen"><span class="wm-t">Bill Chen</span><svg class="wm-v2" viewBox="-9.6 -59.1 191.9 71.6" aria-hidden="true" focusable="false"><path d="M2.43 0V-33.47H15.26Q18.88 -33.47 21.28 -32.33Q23.69 -31.2 24.88 -29.24Q26.08 -27.27 26.08 -24.79Q26.08 -22.76 25.3 -21.3Q24.52 -19.85 23.2 -18.95Q21.88 -18.05 20.23 -17.65V-17.32Q22.03 -17.24 23.66 -16.25Q25.3 -15.26 26.34 -13.46Q27.38 -11.66 27.38 -9.13Q27.38 -6.52 26.13 -4.46Q24.88 -2.39 22.35 -1.2Q19.82 0 15.98 0H2.43ZM8.48 -5.05H15.01Q18.31 -5.05 19.77 -6.33Q21.24 -7.61 21.24 -9.6Q21.24 -11.1 20.5 -12.29Q19.77 -13.48 18.41 -14.17Q17.06 -14.87 15.2 -14.87H8.48V-5.05ZM8.48 -19.22H14.5Q16.07 -19.22 17.32 -19.8Q18.58 -20.39 19.3 -21.46Q20.03 -22.53 20.03 -24Q20.03 -25.93 18.66 -27.19Q17.3 -28.45 14.64 -28.45H8.48V-19.22ZM29.79 0V-25.11H35.69V0H29.79ZM32.74 -28.64Q31.33 -28.64 30.33 -29.58Q29.32 -30.53 29.32 -31.86Q29.32 -33.2 30.33 -34.14Q31.33 -35.08 32.74 -35.08Q34.16 -35.08 35.16 -34.14Q36.17 -33.2 36.17 -31.86Q36.17 -30.53 35.16 -29.59Q34.16 -28.64 32.74 -28.64ZM45.04 -33.47V0H39.13V-33.47H45.04ZM54.38 -33.47V0H48.48V-33.47H54.38ZM81.33 0.45Q76.94 0.45 73.47 -1.59Q70 -3.64 68.01 -7.48Q66.01 -11.32 66.01 -16.71Q66.01 -22.13 68.02 -25.98Q70.03 -29.84 73.5 -31.88Q76.97 -33.92 81.33 -33.92Q84.11 -33.92 86.52 -33.13Q88.93 -32.33 90.81 -30.82Q92.69 -29.31 93.9 -27.13Q95.1 -24.94 95.48 -22.16H89.37Q89.12 -23.66 88.42 -24.84Q87.72 -26.01 86.67 -26.83Q85.62 -27.64 84.29 -28.06Q82.97 -28.49 81.44 -28.49Q78.71 -28.49 76.6 -27.12Q74.48 -25.75 73.29 -23.12Q72.1 -20.49 72.1 -16.71Q72.1 -12.89 73.3 -10.27Q74.5 -7.65 76.61 -6.31Q78.71 -4.98 81.42 -4.98Q82.92 -4.98 84.23 -5.38Q85.54 -5.78 86.6 -6.57Q87.66 -7.36 88.38 -8.49Q89.09 -9.63 89.37 -11.11H95.48Q95.15 -8.71 94.02 -6.61Q92.89 -4.51 91.05 -2.93Q89.21 -1.35 86.76 -0.45Q84.31 0.45 81.33 0.45ZM104.09 -14.7V0H98.19V-33.47H103.95V-20.82H104.27Q105.14 -22.95 106.98 -24.19Q108.83 -25.43 111.73 -25.43Q114.32 -25.43 116.27 -24.33Q118.21 -23.23 119.3 -21.12Q120.38 -19.01 120.38 -15.97V0H114.45V-15.05Q114.45 -17.6 113.15 -19.01Q111.84 -20.42 109.51 -20.42Q107.92 -20.42 106.7 -19.74Q105.49 -19.06 104.79 -17.79Q104.09 -16.52 104.09 -14.7ZM134.94 0.5Q131.16 0.5 128.41 -1.08Q125.67 -2.67 124.2 -5.57Q122.73 -8.48 122.73 -12.41Q122.73 -16.28 124.19 -19.21Q125.65 -22.14 128.31 -23.78Q130.96 -25.43 134.55 -25.43Q136.87 -25.43 138.95 -24.68Q141.03 -23.93 142.63 -22.39Q144.24 -20.84 145.15 -18.45Q146.07 -16.06 146.07 -12.75V-10.92H125.49V-14.9H143.13L140.37 -13.73Q140.37 -15.85 139.72 -17.44Q139.07 -19.03 137.78 -19.92Q136.5 -20.82 134.59 -20.82Q132.68 -20.82 131.34 -19.92Q130 -19.02 129.29 -17.51Q128.59 -16 128.59 -14.13V-11.37Q128.59 -9.07 129.39 -7.44Q130.19 -5.82 131.65 -4.96Q133.1 -4.11 135.01 -4.11Q136.28 -4.11 137.32 -4.47Q138.37 -4.84 139.12 -5.57Q139.88 -6.3 140.27 -7.36L145.79 -6.71Q145.27 -4.54 143.82 -2.91Q142.36 -1.29 140.11 -0.39Q137.85 0.5 134.94 0.5ZM154.25 -14.7V0H148.34V-25.11H154.13V-20.82H154.42Q155.28 -22.94 157.11 -24.18Q158.95 -25.43 161.78 -25.43Q164.37 -25.43 166.3 -24.32Q168.23 -23.22 169.3 -21.1Q170.37 -18.99 170.37 -15.97V0H164.47V-15.05Q164.47 -17.56 163.16 -18.99Q161.86 -20.42 159.57 -20.42Q158.02 -20.42 156.82 -19.74Q155.62 -19.06 154.93 -17.79Q154.25 -16.52 154.25 -14.7Z" fill="currentColor"/><path d="M81.3 0.4C78.4 0.4 75.8 -0.2 73.5 -1.6C71.2 -3 69.3 -4.9 68 -7.5C66.7 -10 66 -13.1 66 -16.7C66 -20.3 66.7 -23.4 68 -26C69.4 -28.6 71.2 -30.5 73.5 -31.9C75.8 -33.2 78.4 -33.9 81.3 -33.9C83.2 -33.9 84.9 -33.7 86.5 -33.1C88.1 -32.6 89.6 -31.8 90.8 -30.8C92.1 -29.8 93.1 -28.6 93.9 -27.1C94.7 -25.7 95.2 -24 95.5 -22.2L89.4 -22.2C89.2 -23.2 88.9 -24.1 88.4 -24.8C88 -25.6 87.4 -26.3 86.7 -26.8C86 -27.4 85.2 -27.8 84.3 -28.1C83.4 -28.3 82.5 -28.5 81.4 -28.5C79.6 -28.5 78 -28 76.6 -27.1C75.2 -26.2 74.1 -24.9 73.3 -23.1C72.5 -21.4 72.1 -19.2 72.1 -16.7C72.1 -14.2 72.5 -12 73.3 -10.3C74.1 -8.5 75.2 -7.2 76.6 -6.3C78 -5.4 79.6 -5 81.4 -5C82.4 -5 83.4 -5.1 84.2 -5.4C85.1 -5.6 85.9 -6 86.6 -6.6C87.3 -7.1 87.9 -7.7 88.4 -8.5C88.9 -9.3 89.2 -10.1 89.4 -11.1L95.5 -11.1C95.3 -9.5 94.8 -8 94 -6.6C93.3 -5.2 92.3 -4 91.1 -2.9C89.8 -1.9 88.4 -1 86.8 -0.4C85.1 0.1 83.3 0.4 81.3 0.4" fill="none" stroke="#1c79ba" stroke-width="1.1"/><rect x="-5.6" y="-43.1" width="183.9" height="51.6" fill="none" stroke="#1c79ba" stroke-width="1.3"/><path d="M81.3 -33.9L68.3 -33.9" stroke="#1c79ba" stroke-width="1.1"/><circle cx="68.3" cy="-33.9" r="2.4" fill="#1c79ba"/><path d="M81.3 -33.9L94.3 -33.9" stroke="#1c79ba" stroke-width="1.1"/><circle cx="94.3" cy="-33.9" r="2.4" fill="#1c79ba"/><rect x="71.7" y="-3.4" width="3.6" height="3.6" fill="#ffffff" stroke="#1c79ba" stroke-width="0.9"/><rect x="64.2" y="-18.5" width="3.6" height="3.6" fill="#ffffff" stroke="#1c79ba" stroke-width="0.9"/><rect x="92.1" y="-28.9" width="3.6" height="3.6" fill="#ffffff" stroke="#1c79ba" stroke-width="0.9"/><rect x="82.4" y="-7.2" width="3.6" height="3.6" fill="#ffffff" stroke="#1c79ba" stroke-width="0.9"/><rect x="93.7" y="-12.9" width="3.6" height="3.6" fill="#ffffff" stroke="#1c79ba" stroke-width="0.9"/><rect x="79" y="-36.2" width="4.6" height="4.6" fill="#1c79ba" stroke="#1c79ba" stroke-width="1.01"/><rect x="-8.8" y="-46.3" width="6.5" height="6.5" fill="#ffffff" stroke="#1c79ba" stroke-width="1.3"/><rect x="175.1" y="-46.3" width="6.5" height="6.5" fill="#ffffff" stroke="#1c79ba" stroke-width="1.3"/><rect x="-8.8" y="5.3" width="6.5" height="6.5" fill="#ffffff" stroke="#1c79ba" stroke-width="1.3"/><rect x="175.1" y="5.3" width="6.5" height="6.5" fill="#ffffff" stroke="#1c79ba" stroke-width="1.3"/><rect x="83.1" y="-46.3" width="6.5" height="6.5" fill="#ffffff" stroke="#1c79ba" stroke-width="1.3"/><rect x="83.1" y="5.3" width="6.5" height="6.5" fill="#ffffff" stroke="#1c79ba" stroke-width="1.3"/><rect x="-8.8" y="-20.5" width="6.5" height="6.5" fill="#ffffff" stroke="#1c79ba" stroke-width="1.3"/><rect x="175.1" y="-20.5" width="6.5" height="6.5" fill="#ffffff" stroke="#1c79ba" stroke-width="1.3"/></svg><svg class="wm-v2 wm-v2c" viewBox="-9.6 -59.1 191.9 71.6" aria-hidden="true" focusable="false"><path d="M2.43 0V-33.47H15.26Q18.88 -33.47 21.28 -32.33Q23.69 -31.2 24.88 -29.24Q26.08 -27.27 26.08 -24.79Q26.08 -22.76 25.3 -21.3Q24.52 -19.85 23.2 -18.95Q21.88 -18.05 20.23 -17.65V-17.32Q22.03 -17.24 23.66 -16.25Q25.3 -15.26 26.34 -13.46Q27.38 -11.66 27.38 -9.13Q27.38 -6.52 26.13 -4.46Q24.88 -2.39 22.35 -1.2Q19.82 0 15.98 0H2.43ZM8.48 -5.05H15.01Q18.31 -5.05 19.77 -6.33Q21.24 -7.61 21.24 -9.6Q21.24 -11.1 20.5 -12.29Q19.77 -13.48 18.41 -14.17Q17.06 -14.87 15.2 -14.87H8.48V-5.05ZM8.48 -19.22H14.5Q16.07 -19.22 17.32 -19.8Q18.58 -20.39 19.3 -21.46Q20.03 -22.53 20.03 -24Q20.03 -25.93 18.66 -27.19Q17.3 -28.45 14.64 -28.45H8.48V-19.22ZM29.79 0V-25.11H35.69V0H29.79ZM32.74 -28.64Q31.33 -28.64 30.33 -29.58Q29.32 -30.53 29.32 -31.86Q29.32 -33.2 30.33 -34.14Q31.33 -35.08 32.74 -35.08Q34.16 -35.08 35.16 -34.14Q36.17 -33.2 36.17 -31.86Q36.17 -30.53 35.16 -29.59Q34.16 -28.64 32.74 -28.64ZM45.04 -33.47V0H39.13V-33.47H45.04ZM54.38 -33.47V0H48.48V-33.47H54.38ZM81.33 0.45Q76.94 0.45 73.47 -1.59Q70 -3.64 68.01 -7.48Q66.01 -11.32 66.01 -16.71Q66.01 -22.13 68.02 -25.98Q70.03 -29.84 73.5 -31.88Q76.97 -33.92 81.33 -33.92Q84.11 -33.92 86.52 -33.13Q88.93 -32.33 90.81 -30.82Q92.69 -29.31 93.9 -27.13Q95.1 -24.94 95.48 -22.16H89.37Q89.12 -23.66 88.42 -24.84Q87.72 -26.01 86.67 -26.83Q85.62 -27.64 84.29 -28.06Q82.97 -28.49 81.44 -28.49Q78.71 -28.49 76.6 -27.12Q74.48 -25.75 73.29 -23.12Q72.1 -20.49 72.1 -16.71Q72.1 -12.89 73.3 -10.27Q74.5 -7.65 76.61 -6.31Q78.71 -4.98 81.42 -4.98Q82.92 -4.98 84.23 -5.38Q85.54 -5.78 86.6 -6.57Q87.66 -7.36 88.38 -8.49Q89.09 -9.63 89.37 -11.11H95.48Q95.15 -8.71 94.02 -6.61Q92.89 -4.51 91.05 -2.93Q89.21 -1.35 86.76 -0.45Q84.31 0.45 81.33 0.45ZM104.09 -14.7V0H98.19V-33.47H103.95V-20.82H104.27Q105.14 -22.95 106.98 -24.19Q108.83 -25.43 111.73 -25.43Q114.32 -25.43 116.27 -24.33Q118.21 -23.23 119.3 -21.12Q120.38 -19.01 120.38 -15.97V0H114.45V-15.05Q114.45 -17.6 113.15 -19.01Q111.84 -20.42 109.51 -20.42Q107.92 -20.42 106.7 -19.74Q105.49 -19.06 104.79 -17.79Q104.09 -16.52 104.09 -14.7ZM134.94 0.5Q131.16 0.5 128.41 -1.08Q125.67 -2.67 124.2 -5.57Q122.73 -8.48 122.73 -12.41Q122.73 -16.28 124.19 -19.21Q125.65 -22.14 128.31 -23.78Q130.96 -25.43 134.55 -25.43Q136.87 -25.43 138.95 -24.68Q141.03 -23.93 142.63 -22.39Q144.24 -20.84 145.15 -18.45Q146.07 -16.06 146.07 -12.75V-10.92H125.49V-14.9H143.13L140.37 -13.73Q140.37 -15.85 139.72 -17.44Q139.07 -19.03 137.78 -19.92Q136.5 -20.82 134.59 -20.82Q132.68 -20.82 131.34 -19.92Q130 -19.02 129.29 -17.51Q128.59 -16 128.59 -14.13V-11.37Q128.59 -9.07 129.39 -7.44Q130.19 -5.82 131.65 -4.96Q133.1 -4.11 135.01 -4.11Q136.28 -4.11 137.32 -4.47Q138.37 -4.84 139.12 -5.57Q139.88 -6.3 140.27 -7.36L145.79 -6.71Q145.27 -4.54 143.82 -2.91Q142.36 -1.29 140.11 -0.39Q137.85 0.5 134.94 0.5ZM154.25 -14.7V0H148.34V-25.11H154.13V-20.82H154.42Q155.28 -22.94 157.11 -24.18Q158.95 -25.43 161.78 -25.43Q164.37 -25.43 166.3 -24.32Q168.23 -23.22 169.3 -21.1Q170.37 -18.99 170.37 -15.97V0H164.47V-15.05Q164.47 -17.56 163.16 -18.99Q161.86 -20.42 159.57 -20.42Q158.02 -20.42 156.82 -19.74Q155.62 -19.06 154.93 -17.79Q154.25 -16.52 154.25 -14.7Z" fill="currentColor"/><path d="M154.2 -14.7L154.2 0L148.3 0L148.3 -25.1L154.1 -25.1L154.1 -20.8L154.4 -20.8C155 -22.2 155.9 -23.4 157.1 -24.2C158.3 -25 159.9 -25.4 161.8 -25.4C163.5 -25.4 165 -25.1 166.3 -24.3C167.6 -23.6 168.6 -22.5 169.3 -21.1C170 -19.7 170.4 -18 170.4 -16L170.4 0L164.5 0L164.5 -15C164.5 -16.7 164 -18 163.2 -19C162.3 -19.9 161.1 -20.4 159.6 -20.4C158.5 -20.4 157.6 -20.2 156.8 -19.7C156 -19.3 155.4 -18.6 154.9 -17.8C154.5 -16.9 154.2 -15.9 154.2 -14.7" fill="none" stroke="#1c79ba" stroke-width="1"/><rect x="-5.6" y="-43.1" width="183.9" height="51.6" fill="none" stroke="#1c79ba" stroke-width="1.3"/><path d="M161.8 -25.4L174.8 -25.4" stroke="#1c79ba" stroke-width="1.1"/><circle cx="174.8" cy="-25.4" r="2.3" fill="#1c79ba"/><rect x="146.7" y="-1.6" width="3.2" height="3.2" fill="#ffffff" stroke="#1c79ba" stroke-width="0.8"/><rect x="146.7" y="-26.7" width="3.2" height="3.2" fill="#ffffff" stroke="#1c79ba" stroke-width="0.8"/><rect x="167.7" y="-22.7" width="3.2" height="3.2" fill="#ffffff" stroke="#1c79ba" stroke-width="0.8"/><rect x="168.8" y="-1.6" width="3.2" height="3.2" fill="#ffffff" stroke="#1c79ba" stroke-width="0.8"/><rect x="159.6" y="-27.6" width="4.4" height="4.4" fill="#1c79ba" stroke="#1c79ba" stroke-width="0.97"/><rect x="-8.8" y="-46.3" width="6.5" height="6.5" fill="#ffffff" stroke="#1c79ba" stroke-width="1.3"/><rect x="175.1" y="-46.3" width="6.5" height="6.5" fill="#ffffff" stroke="#1c79ba" stroke-width="1.3"/><rect x="-8.8" y="5.3" width="6.5" height="6.5" fill="#ffffff" stroke="#1c79ba" stroke-width="1.3"/><rect x="175.1" y="5.3" width="6.5" height="6.5" fill="#ffffff" stroke="#1c79ba" stroke-width="1.3"/><rect x="83.1" y="-46.3" width="6.5" height="6.5" fill="#ffffff" stroke="#1c79ba" stroke-width="1.3"/><rect x="83.1" y="5.3" width="6.5" height="6.5" fill="#ffffff" stroke="#1c79ba" stroke-width="1.3"/><rect x="-8.8" y="-20.5" width="6.5" height="6.5" fill="#ffffff" stroke="#1c79ba" stroke-width="1.3"/><rect x="175.1" y="-20.5" width="6.5" height="6.5" fill="#ffffff" stroke="#1c79ba" stroke-width="1.3"/></svg><svg class="wm-v2 wm-v2e" viewBox="-9.6 -59.1 191.9 71.6" aria-hidden="true" focusable="false"><path d="M2.43 0V-33.47H15.26Q18.88 -33.47 21.28 -32.33Q23.69 -31.2 24.88 -29.24Q26.08 -27.27 26.08 -24.79Q26.08 -22.76 25.3 -21.3Q24.52 -19.85 23.2 -18.95Q21.88 -18.05 20.23 -17.65V-17.32Q22.03 -17.24 23.66 -16.25Q25.3 -15.26 26.34 -13.46Q27.38 -11.66 27.38 -9.13Q27.38 -6.52 26.13 -4.46Q24.88 -2.39 22.35 -1.2Q19.82 0 15.98 0H2.43ZM8.48 -5.05H15.01Q18.31 -5.05 19.77 -6.33Q21.24 -7.61 21.24 -9.6Q21.24 -11.1 20.5 -12.29Q19.77 -13.48 18.41 -14.17Q17.06 -14.87 15.2 -14.87H8.48V-5.05ZM8.48 -19.22H14.5Q16.07 -19.22 17.32 -19.8Q18.58 -20.39 19.3 -21.46Q20.03 -22.53 20.03 -24Q20.03 -25.93 18.66 -27.19Q17.3 -28.45 14.64 -28.45H8.48V-19.22ZM29.79 0V-25.11H35.69V0H29.79ZM32.74 -28.64Q31.33 -28.64 30.33 -29.58Q29.32 -30.53 29.32 -31.86Q29.32 -33.2 30.33 -34.14Q31.33 -35.08 32.74 -35.08Q34.16 -35.08 35.16 -34.14Q36.17 -33.2 36.17 -31.86Q36.17 -30.53 35.16 -29.59Q34.16 -28.64 32.74 -28.64ZM45.04 -33.47V0H39.13V-33.47H45.04ZM54.38 -33.47V0H48.48V-33.47H54.38ZM81.33 0.45Q76.94 0.45 73.47 -1.59Q70 -3.64 68.01 -7.48Q66.01 -11.32 66.01 -16.71Q66.01 -22.13 68.02 -25.98Q70.03 -29.84 73.5 -31.88Q76.97 -33.92 81.33 -33.92Q84.11 -33.92 86.52 -33.13Q88.93 -32.33 90.81 -30.82Q92.69 -29.31 93.9 -27.13Q95.1 -24.94 95.48 -22.16H89.37Q89.12 -23.66 88.42 -24.84Q87.72 -26.01 86.67 -26.83Q85.62 -27.64 84.29 -28.06Q82.97 -28.49 81.44 -28.49Q78.71 -28.49 76.6 -27.12Q74.48 -25.75 73.29 -23.12Q72.1 -20.49 72.1 -16.71Q72.1 -12.89 73.3 -10.27Q74.5 -7.65 76.61 -6.31Q78.71 -4.98 81.42 -4.98Q82.92 -4.98 84.23 -5.38Q85.54 -5.78 86.6 -6.57Q87.66 -7.36 88.38 -8.49Q89.09 -9.63 89.37 -11.11H95.48Q95.15 -8.71 94.02 -6.61Q92.89 -4.51 91.05 -2.93Q89.21 -1.35 86.76 -0.45Q84.31 0.45 81.33 0.45ZM104.09 -14.7V0H98.19V-33.47H103.95V-20.82H104.27Q105.14 -22.95 106.98 -24.19Q108.83 -25.43 111.73 -25.43Q114.32 -25.43 116.27 -24.33Q118.21 -23.23 119.3 -21.12Q120.38 -19.01 120.38 -15.97V0H114.45V-15.05Q114.45 -17.6 113.15 -19.01Q111.84 -20.42 109.51 -20.42Q107.92 -20.42 106.7 -19.74Q105.49 -19.06 104.79 -17.79Q104.09 -16.52 104.09 -14.7ZM134.94 0.5Q131.16 0.5 128.41 -1.08Q125.67 -2.67 124.2 -5.57Q122.73 -8.48 122.73 -12.41Q122.73 -16.28 124.19 -19.21Q125.65 -22.14 128.31 -23.78Q130.96 -25.43 134.55 -25.43Q136.87 -25.43 138.95 -24.68Q141.03 -23.93 142.63 -22.39Q144.24 -20.84 145.15 -18.45Q146.07 -16.06 146.07 -12.75V-10.92H125.49V-14.9H143.13L140.37 -13.73Q140.37 -15.85 139.72 -17.44Q139.07 -19.03 137.78 -19.92Q136.5 -20.82 134.59 -20.82Q132.68 -20.82 131.34 -19.92Q130 -19.02 129.29 -17.51Q128.59 -16 128.59 -14.13V-11.37Q128.59 -9.07 129.39 -7.44Q130.19 -5.82 131.65 -4.96Q133.1 -4.11 135.01 -4.11Q136.28 -4.11 137.32 -4.47Q138.37 -4.84 139.12 -5.57Q139.88 -6.3 140.27 -7.36L145.79 -6.71Q145.27 -4.54 143.82 -2.91Q142.36 -1.29 140.11 -0.39Q137.85 0.5 134.94 0.5ZM154.25 -14.7V0H148.34V-25.11H154.13V-20.82H154.42Q155.28 -22.94 157.11 -24.18Q158.95 -25.43 161.78 -25.43Q164.37 -25.43 166.3 -24.32Q168.23 -23.22 169.3 -21.1Q170.37 -18.99 170.37 -15.97V0H164.47V-15.05Q164.47 -17.56 163.16 -18.99Q161.86 -20.42 159.57 -20.42Q158.02 -20.42 156.82 -19.74Q155.62 -19.06 154.93 -17.79Q154.25 -16.52 154.25 -14.7Z" fill="currentColor"/><path d="M134.9 0.5C132.4 0.5 130.2 -0 128.4 -1.1M128.4 -1.1C126.6 -2.1 125.2 -3.6 124.2 -5.6M124.2 -5.6C123.2 -7.5 122.7 -9.8 122.7 -12.4M122.7 -12.4C122.7 -15 123.2 -17.3 124.2 -19.2M124.2 -19.2C125.2 -21.2 126.5 -22.7 128.3 -23.8M128.3 -23.8C130.1 -24.9 132.2 -25.4 134.6 -25.4M134.6 -25.4C136.1 -25.4 137.6 -25.2 138.9 -24.7M138.9 -24.7C140.3 -24.2 141.6 -23.4 142.6 -22.4M142.6 -22.4C143.7 -21.4 144.5 -20 145.2 -18.4M145.2 -18.4C145.8 -16.9 146.1 -15 146.1 -12.7M146.1 -12.7L146.1 -10.9M145.8 -6.7C145.4 -5.3 144.8 -4 143.8 -2.9M143.8 -2.9C142.8 -1.8 141.6 -1 140.1 -0.4M140.1 -0.4C138.6 0.2 136.9 0.5 134.9 0.5" fill="none" stroke="#1c79ba" stroke-width="1"/><rect x="-5.6" y="-43.1" width="183.9" height="51.6" fill="none" stroke="#1c79ba" stroke-width="1.3"/><path d="M134.6 -25.4L125.6 -25.4" stroke="#1c79ba" stroke-width="1.1"/><circle cx="125.6" cy="-25.4" r="2.2" fill="#1c79ba"/><path d="M134.6 -25.4L143.6 -25.4" stroke="#1c79ba" stroke-width="1.1"/><circle cx="143.6" cy="-25.4" r="2.2" fill="#1c79ba"/><rect x="126.8" y="-2.7" width="3.2" height="3.2" fill="#ffffff" stroke="#1c79ba" stroke-width="0.8"/><rect x="121.1" y="-14" width="3.2" height="3.2" fill="#ffffff" stroke="#1c79ba" stroke-width="0.8"/><rect x="141" y="-24" width="3.2" height="3.2" fill="#ffffff" stroke="#1c79ba" stroke-width="0.8"/><rect x="144.5" y="-14.3" width="3.2" height="3.2" fill="#ffffff" stroke="#1c79ba" stroke-width="0.8"/><rect x="142.2" y="-4.5" width="3.2" height="3.2" fill="#ffffff" stroke="#1c79ba" stroke-width="0.8"/><rect x="132.4" y="-27.6" width="4.4" height="4.4" fill="#1c79ba" stroke="#1c79ba" stroke-width="0.97"/><rect x="-8.8" y="-46.3" width="6.5" height="6.5" fill="#ffffff" stroke="#1c79ba" stroke-width="1.3"/><rect x="175.1" y="-46.3" width="6.5" height="6.5" fill="#ffffff" stroke="#1c79ba" stroke-width="1.3"/><rect x="-8.8" y="5.3" width="6.5" height="6.5" fill="#ffffff" stroke="#1c79ba" stroke-width="1.3"/><rect x="175.1" y="5.3" width="6.5" height="6.5" fill="#ffffff" stroke="#1c79ba" stroke-width="1.3"/><rect x="83.1" y="-46.3" width="6.5" height="6.5" fill="#ffffff" stroke="#1c79ba" stroke-width="1.3"/><rect x="83.1" y="5.3" width="6.5" height="6.5" fill="#ffffff" stroke="#1c79ba" stroke-width="1.3"/><rect x="-8.8" y="-20.5" width="6.5" height="6.5" fill="#ffffff" stroke="#1c79ba" stroke-width="1.3"/><rect x="175.1" y="-20.5" width="6.5" height="6.5" fill="#ffffff" stroke="#1c79ba" stroke-width="1.3"/></svg></a><div class="links"><a class="pf" href="#gallery" aria-current="page">Portfolio</a><a class="ic" href="#contact" data-contact aria-label="Contact" title="Contact"><svg viewBox="0 0 24 24" width="19" height="19" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><rect x="3" y="5.5" width="18" height="13" rx="2.5"/><path d="m4 7.5 8 6 8-6"/></svg></a><a class="ic" href="https://www.linkedin.com/in/billchenux" target="_blank" rel="noopener" aria-label="LinkedIn (opens in a new tab)" title="LinkedIn"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" fill="currentColor"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28ZM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13ZM7.12 20.45H3.56V9h3.56v11.45ZM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0Z"/></svg></a></div></div></nav>
 <main class="g4" id="gallery">
@@ -448,7 +501,7 @@ html.hb-in .g4-row{pointer-events:none}
 </a></li></ul>
 
 </main>
-<div class="f-ch" id="f-ch"><button class="f-av" type="button" aria-expanded="false" aria-controls="f-bub" aria-label="About Bill Chen"><img class="f-pop" src="assets/home/avatar/bill-avatar-pop-80.webp" srcset="assets/home/avatar/bill-avatar-pop-80.webp 1x, assets/home/avatar/bill-avatar-pop-160.webp 2x, assets/home/avatar/bill-avatar-pop-240.webp 3x" width="80" height="92" alt="" decoding="async"><span class="f-dot" aria-hidden="true"></span></button><div class="f-bub" id="f-bub"><svg class="f-tl" viewBox="0 0 19 22" aria-hidden="true" focusable="false"><path d="M0 .5C6 3.6 11.6 7.4 17.2 10.2Q18.6 11 17.2 11.8C11.6 14.6 6 18.4 0 21.5" fill="#fff" stroke="#e6e8ec" stroke-width="1"/></svg><span class="f-hi"><span class="f-h1">Hi, I&rsquo;m</span><span class="f-h2">Bill Chen</span></span><span class="f-role">Product Design Leader</span><span class="f-txt">I design scalable enterprise software ecosystems and transform dense, technical data into minimalist user experiences. Specializing in data visualization and complex SaaS platforms, my work directly bridges the gap between deep infrastructure constraints and critical product&nbsp;execution.</span><a class="ui-btn f-cta" href="#contact" data-contact>Contact me<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h9M8.5 4.5 12 8l-3.5 3.5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div></div>
+<div class="f-ch" id="f-ch"><button class="f-av" type="button" aria-expanded="false" aria-controls="f-bub" aria-label="About Bill Chen"><img class="f-pop" src="assets/home/avatar/bill-avatar-pop-80.webp" srcset="assets/home/avatar/bill-avatar-pop-80.webp 1x, assets/home/avatar/bill-avatar-pop-160.webp 2x, assets/home/avatar/bill-avatar-pop-240.webp 3x" width="80" height="92" alt="" decoding="async"><span class="f-face" aria-hidden="true"><img class="f-o f-m1" src="assets/home/avatar/talk/mouth-1.webp" alt="" width="80" height="92"><img class="f-o f-m2" src="assets/home/avatar/talk/mouth-2.webp" alt="" width="80" height="92"><img class="f-o f-eh" src="assets/home/avatar/talk/eyes-half.webp" alt="" width="80" height="92"><img class="f-o f-es" src="assets/home/avatar/talk/eyes-shut.webp" alt="" width="80" height="92"></span><span class="f-dot" aria-hidden="true"></span></button><div class="f-bub" id="f-bub" role="region" aria-label="About Bill Chen"><svg class="f-tl" viewBox="0 0 19 22" aria-hidden="true" focusable="false"><path d="M0 .5C6 3.6 11.6 7.4 17.2 10.2Q18.6 11 17.2 11.8C11.6 14.6 6 18.4 0 21.5" fill="#fff" stroke="#e6e8ec" stroke-width="1"/></svg><button class="f-x" type="button" aria-label="Close chat"><svg viewBox="0 0 20 20" width="14" height="14" aria-hidden="true"><path d="M5 5l10 10M15 5 5 15" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg></button><div class="f-sc"><span class="f-hi"><span class="f-h1">Hi, I&rsquo;m</span><span class="f-h2">Bill Chen</span></span><span class="f-role">Product Design Leader</span><span class="f-txt">I design scalable enterprise software ecosystems and transform dense, technical data into minimalist user experiences. Specializing in data visualization and complex SaaS platforms, my work directly bridges the gap between deep infrastructure constraints and critical product&nbsp;execution.</span><a class="ui-btn f-cta" href="#contact" data-contact>Contact me<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h9M8.5 4.5 12 8l-3.5 3.5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></a><div class="f-log" role="log" aria-live="polite" aria-label="Chat with Bill"></div></div><form class="f-in" hidden novalidate><input type="checkbox" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true"><input class="f-tx" type="text" enterkeyhint="send"><textarea class="f-tx" rows="1" hidden enterkeyhint="send"></textarea><button type="submit" class="f-send" aria-label="Send"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h9M8.5 4.5 12 8l-3.5 3.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button></form></div></div>
 <div class="cm" id="contact-modal" role="dialog" aria-modal="true" aria-labelledby="cm-t" hidden><div class="cm-bg" data-close></div><div class="cm-p">
 <button class="cm-x" type="button" aria-label="Close" data-close><svg viewBox="0 0 20 20" width="16" height="16" aria-hidden="true"><path d="M5 5l10 10M15 5 5 15" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></button>
 <h2 id="cm-t">Let’s build something great&nbsp;together.</h2><p class="cm-s">Have an exciting role, a tricky product challenge, or just want to talk design? I’d&nbsp;love to hear&nbsp;from&nbsp;you.</p>
@@ -496,16 +549,171 @@ if(me){const sync=()=>fb.setAttribute('aria-expanded',String(me.matches(':hover'
  me.addEventListener('keydown',e=>{if(e.key==='Escape'){me.classList.remove('open');me.classList.add('shut');fb.focus();fb.setAttribute('aria-expanded','false')}});
  me.addEventListener('pointerleave',()=>me.classList.remove('shut'));me.addEventListener('focusout',e=>{if(!me.contains(e.relatedTarget))me.classList.remove('shut')});fb.addEventListener('click',()=>me.classList.remove('shut'),true)}
 })();
-(()=>{const w=document.getElementById('f-ch');if(!w)return;const b=w.querySelector('.f-av');let t,esc=0;
-const set=o=>{clearTimeout(t);w.classList.toggle('open',o);b.setAttribute('aria-expanded',String(o))};
+/* t316 (from test page t313): About me as an old RPG style talking avatar, plus a small chat module.
+   Pieces, so this can grow into a fuller chat later:
+     Face    : mouth flaps while talking, eyes blink now and then while the bubble is open
+     Typer   : types text into an element character by character, pauses on punctuation and between lines
+     Thread  : message list (bot and visitor turns), quick replies, the input row
+     flows   : named conversations (flows.contact sends through Web3Forms like the overlay form does) */
+(()=>{
+const w=document.getElementById('f-ch');if(!w)return;
+const av=w.querySelector('.f-av'),bub=w.querySelector('.f-bub'),cta=w.querySelector('.f-cta');
+const RMq=matchMedia('(prefers-reduced-motion: reduce)');const rm=()=>RMq.matches;
 const fine=matchMedia('(hover:hover) and (pointer:fine)');
+const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+/* talking speed: 1 = the first test (about 8.8 s intro); 1.75 brings the intro to about 5 s */
+const SPEED=1.75;
+const rnd=(a,b)=>a+Math.random()*(b-a);
+
+/* ---------- Face: mouth + blink, drawn as overlays on the real avatar ---------- */
+const Face={talking:false,mt:0,bt:0,
+ mouth(f){w.dataset.mouth=f||''},
+ eyes(f){w.dataset.eyes=f||''},
+ talk(on){if(rm())on=false;if(on===this.talking)return;this.talking=on;clearTimeout(this.mt);
+  if(!on){this.mouth('');return}
+  /* a little random so it reads as speech, never the same shape twice in a row */
+  let last='';const step=()=>{if(!this.talking)return;const opts=['1','2','1','','2','1'].filter(x=>x!==last);last=opts[Math.random()*opts.length|0];this.mouth(last);this.mt=setTimeout(step,rnd(80,130))};step()},
+ startBlink(){if(this.bt||rm())return;const loop=()=>{this.bt=setTimeout(async()=>{await this.blink();if(Math.random()<.12){await sleep(170);await this.blink()}if(this.bt)loop()},rnd(3500,7000))};loop()},
+ stopBlink(){clearTimeout(this.bt);this.bt=0;this.eyes('')},
+ async blink(){this.eyes('half');await sleep(35);this.eyes('shut');await sleep(65);this.eyes('half');await sleep(40);this.eyes('')}
+};
+
+/* ---------- Typer: reveals text in place, so the layout never jumps while it types ---------- */
+function Typer(face){let gate=null,openGate=null,skip=false;
+ const api={paused:false,
+  pause(){if(api.paused)return;api.paused=true;gate=new Promise(r=>openGate=r);face.talk(false)},
+  resume(){if(!api.paused)return;api.paused=false;openGate&&openGate();gate=null},
+  skipAll(){skip=true;api.resume()},
+  reset(){skip=false},
+  /* el gets the text; visible part grows, the rest is reserved but transparent */
+  async type(el,text,{cps=52,instant=false}={}){
+   el.textContent='';const sr=document.createElement('span');sr.className='sr';sr.textContent=text;
+   const vis=document.createElement('span');vis.setAttribute('aria-hidden','true');const a=document.createElement('span'),b=document.createElement('span');b.className='un';
+   vis.append(a,b);el.append(sr,vis);
+   if(instant||rm()||skip){a.textContent=text;b.textContent='';return}
+   b.textContent=text;const per=1000/(cps*SPEED);
+   for(let i=0;i<text.length;i++){
+    if(skip){a.textContent=text;b.textContent='';face.talk(false);return}
+    if(gate)await gate;
+    const ch=text[i];a.textContent=text.slice(0,i+1);b.textContent=text.slice(i+1);
+    const p=(/[.!?]/.test(ch)&&(text[i+1]===' '||i===text.length-1)?360:/[,;:]/.test(ch)?140:0)/SPEED;
+    if(p){face.talk(false);await sleep(p)}else{face.talk(true);await sleep(per*rnd(.7,1.3))}
+   }
+   face.talk(false)}};
+ return api}
+
+/* ---------- Thread: message list + input row ---------- */
+function Thread(root){
+ const log=root.querySelector('.f-log'),sc=root.querySelector('.f-sc'),form=root.querySelector('.f-in'),inp=form.querySelector('input.f-tx'),ta=form.querySelector('textarea.f-tx'),hp=form.querySelector('.hp');
+ const typer=Typer(Face);
+ const down=()=>{sc.scrollTop=sc.scrollHeight};
+ const t={typer,log,
+  async say(text,{who='bot',html=null}={}){const m=document.createElement('div');m.className='f-msg '+(who==='bot'?'bot':'me');log.appendChild(m);
+   if(who==='bot'){await sleep(rm()?0:260);const p=document.createElement('p');m.appendChild(p);down();await typer.type(p,text);if(html){const x=document.createElement('p');x.className='f-more';x.innerHTML=html;m.appendChild(x)}}
+   else{m.textContent=text}
+   down();return m},
+  /* quick replies, returns the picked value */
+  choose(opts){return new Promise(res=>{const row=document.createElement('div');row.className='f-qr';
+   opts.forEach(o=>{const b=document.createElement('button');b.type='button';b.textContent=o.label;b.addEventListener('click',()=>{row.remove();res(o.value)});row.appendChild(b)});
+   log.appendChild(row);down();row.querySelector('button').focus({preventScroll:true})})},
+  /* one answer from the visitor; kind: 'text' | 'email' | 'long' */
+  ask({kind='text',label,placeholder='',autocomplete='off'}){return new Promise(res=>{
+   const el=kind==='long'?ta:inp;const other=el===ta?inp:ta;other.hidden=true;el.hidden=false;
+   if(el===inp){inp.type=kind==='email'?'email':'text';inp.autocomplete=autocomplete;inp.inputMode=kind==='email'?'email':'text'}
+   el.placeholder=placeholder;el.setAttribute('aria-label',label||placeholder);el.value='';el.removeAttribute('aria-invalid');
+   form.hidden=false;root.classList.add('typing-in');requestAnimationFrame(()=>{down();el.focus({preventScroll:true})});
+   const done=v=>{form.removeEventListener('submit',sub);el.removeEventListener('keydown',kd);form.hidden=true;res(v)};
+   const sub=e=>{e.preventDefault();const v=el.value.trim();if(!v){el.focus();return}done(v)};
+   const kd=e=>{if(el===ta&&e.key==='Enter'&&!e.shiftKey&&!e.isComposing){e.preventDefault();form.requestSubmit()}};
+   form.addEventListener('submit',sub);el.addEventListener('keydown',kd)})},
+  /* a whole form as one message card; next() resolves with the values each time it passes validation */
+  form({fields,submit='Send',label='Form'}){const card=document.createElement('form');card.className='f-card';card.noValidate=true;card.setAttribute('aria-label',label);
+   const hp2=document.createElement('input');hp2.type='checkbox';hp2.className='hp';hp2.tabIndex=-1;hp2.autocomplete='off';hp2.setAttribute('aria-hidden','true');card.appendChild(hp2);
+   const uid='fc'+Math.random().toString(36).slice(2,7);
+   fields.forEach(f=>{const l=document.createElement('label');l.className='f-fl';const sp=document.createElement('span');sp.textContent=f.label;
+    const el=document.createElement(f.type==='long'?'textarea':'input');if(f.type==='long')el.rows=4;else el.type=f.type||'text';el.name=f.name;el.id=uid+f.name;
+    if(f.autocomplete)el.autocomplete=f.autocomplete;if(f.placeholder)el.placeholder=f.placeholder;
+    const er=document.createElement('em');er.className='er';er.id=uid+f.name+'-er';er.setAttribute('aria-live','polite');el.setAttribute('aria-describedby',er.id);
+    l.append(sp,el,er);card.appendChild(l)});
+   const row=document.createElement('div');row.className='f-ca';const btn=document.createElement('button');btn.type='submit';btn.className='ui-btn';
+   btn.innerHTML=submit+'<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h9M8.5 4.5 12 8l-3.5 3.5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+   row.appendChild(btn);card.appendChild(row);log.appendChild(card);down();
+   const err=(n,m)=>{const el=card.elements[n],l=el.closest('label');l.classList.toggle('bad',!!m);el.setAttribute('aria-invalid',m?'true':'false');l.querySelector('.er').textContent=m||''};
+   let waiting=null;
+   card.addEventListener('submit',e=>{e.preventDefault();if(!waiting||btn.disabled)return;const v={};let first=null;
+    fields.forEach(f=>{const x=card.elements[f.name].value.trim();v[f.name]=x;const m=f.validate?f.validate(x):(x?'':'Please fill this in.');err(f.name,m);if(m&&!first)first=card.elements[f.name]});
+    if(first){first.focus();return}const r=waiting;waiting=null;r(v)});
+   requestAnimationFrame(()=>{const x=card.querySelector('input:not(.hp),textarea');x&&x.focus({preventScroll:true});down()});
+   return{el:card,bot:()=>hp2.checked,next:()=>new Promise(r=>{waiting=r}),
+    busy(on){btn.disabled=on;card.setAttribute('aria-busy',String(on))},
+    lock(){[...card.elements].forEach(x=>{if(x!==hp2){x.readOnly=true;x.disabled=x.tagName==='BUTTON'}});card.classList.add('done')}}},
+  bot:()=>!!(hp&&hp.checked)};
+ if(ta)ta.addEventListener('input',()=>{ta.style.height='auto';ta.style.height=Math.min(ta.scrollHeight,132)+'px'});
+ return t}
+
+/* ---------- flows: conversations the avatar can have ---------- */
+const mf=document.querySelector('#contact-modal form');
+const KEY=(mf&&mf.elements.access_key&&mf.elements.access_key.value)||'';
+const LI=(mf&&mf.dataset.li)||'https://www.linkedin.com/in/billchenux';
+const flows={
+ async contact(t){
+  await t.say('I’d like to get in touch.',{who:'me'});
+  await t.say('Love that. Leave your details below and I’ll get back to you soon.');
+  const card=t.form({label:'Contact form',submit:'Send',fields:[
+   {name:'name',label:'Name',autocomplete:'name',validate:v=>v?'':'Please add your name.'},
+   {name:'email',label:'Email',type:'email',autocomplete:'email',validate:v=>/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)?'':'Hmm, that doesn’t look like an email address. Mind checking it?'},
+   {name:'message',label:'Message',type:'long',validate:v=>v?'':'Please write a short message.'}]});
+  const {name,email,message}=await card.next();const first=name.split(/\s+/)[0];
+  if(!KEY){card.lock();await t.say('Sending isn’t connected yet, so this message wasn’t sent.',{html:`For now, please reach me on <a href="${LI}" target="_blank" rel="noopener">LinkedIn</a>.`});return}
+  for(;;){card.busy(true);
+   let ok=false;try{const r=await fetch('https://api.web3forms.com/submit',{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},
+     body:JSON.stringify({access_key:KEY,subject:(mf.elements.subject&&mf.elements.subject.value)||'New message from bill-chen.com',from_name:(mf.elements.from_name&&mf.elements.from_name.value)||'Bill Chen Portfolio',name,email,message,botcheck:card.bot()})});
+    const j=await r.json().catch(()=>({}));ok=r.ok&&j.success!==false}catch(_){ok=false}
+   if(ok){card.lock();await t.say(`Thanks, ${first}. Your message is on its way, and I’ll get back to you soon.`);w.classList.add('sent');return}
+   card.busy(false);
+   await t.say('Something went wrong and the message didn’t send.',{html:`Please try again, or reach me on <a href="${LI}" target="_blank" rel="noopener">LinkedIn</a>.`});
+   await t.choose([{label:'Try again',value:'retry'}])}
+ }
+};
+
+/* ---------- the About me intro, typed once ---------- */
+const KEYSEEN='bc-about-typed';
+/* a reload (normal or hard) plays it again; moving between pages in the same tab does not */
+try{const nav=performance.getEntriesByType('navigation')[0];if(nav&&nav.type==='reload')sessionStorage.removeItem(KEYSEEN)}catch(_){}
+let seen=false;try{seen=sessionStorage.getItem(KEYSEEN)==='1'}catch(_){}
+const lines=[...bub.querySelectorAll('.f-h1,.f-h2,.f-role,.f-txt')].map(el=>({el,text:el.textContent}));
+const thread=Thread(w);const typer=thread.typer;
+let intro=null;
+function showIntro(){
+ if(intro)return intro;
+ if(seen||rm()){lines.forEach(l=>typer.type(l.el,l.text,{instant:true}));w.classList.add('said');return intro=Promise.resolve()}
+ w.classList.add('saying');
+ /* reserve every line first, so lines that haven't been said yet stay invisible but keep their space */
+ lines.forEach(l=>{l.el.textContent='';const sr=document.createElement('span');sr.className='sr';sr.textContent=l.text;const u=document.createElement('span');u.className='un';u.setAttribute('aria-hidden','true');u.textContent=l.text;l.el.append(sr,u)});
+ return intro=(async()=>{await sleep(380/SPEED);for(let i=0;i<lines.length;i++){await typer.type(lines[i].el,lines[i].text,{cps:i<2?24:i===2?34:52});if(i<lines.length-1)await sleep((i<2?140:320)/SPEED)}
+  w.classList.remove('saying');w.classList.add('said');seen=true;try{sessionStorage.setItem(KEYSEEN,'1')}catch(_){}})()}
+/* clicking the bubble while it types finishes the line, like pressing A in an RPG */
+bub.addEventListener('click',e=>{if(w.classList.contains('saying')&&!e.target.closest('a,button,input,textarea'))typer.skipAll()});
+
+/* ---------- open / close (replaces the old hover bubble controller) ---------- */
+let t,esc=0,convo=false;
+const isOpen=()=>w.classList.contains('open');
+const set=o=>{clearTimeout(t);w.classList.toggle('open',o);av.setAttribute('aria-expanded',String(o));
+ if(o){showIntro();typer.resume();Face.startBlink()}else{if(w.classList.contains('saying'))typer.pause();Face.stopBlink();Face.talk(false)}};
 w.addEventListener('pointerenter',e=>{if(e.pointerType==='mouse'||fine.matches&&e.pointerType!=='touch')set(true)});
-w.addEventListener('pointerleave',e=>{if(document.documentElement.classList.contains('cm-on'))return;if(e.pointerType==='touch')return;if(!w.contains(document.activeElement)||!b.matches(':focus-visible'))t=setTimeout(()=>set(false),160)});
-b.addEventListener('click',e=>{if(e.detail&&fine.matches&&w.classList.contains('open')&&w.matches(':hover'))return;set(!w.classList.contains('open'))});
-b.addEventListener('focus',()=>setTimeout(()=>{if(!esc&&b.matches(':focus-visible'))set(true);esc=0}));
-w.addEventListener('focusout',e=>{if(!document.documentElement.classList.contains('cm-on')&&!w.contains(e.relatedTarget)&&!w.matches(':hover'))set(false)});
-document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!e.defaultPrevented&&w.classList.contains('open')&&!document.documentElement.classList.contains('cm-on')){set(false);if(w.contains(document.activeElement)&&document.activeElement!==b){esc=1;b.focus({preventScroll:true})}}});
-document.addEventListener('pointerdown',e=>{if(!w.contains(e.target)&&!e.target.closest('#contact-modal'))set(false)});
+w.addEventListener('pointerleave',e=>{if(convo||document.documentElement.classList.contains('cm-on'))return;if(e.pointerType==='touch')return;if(!w.contains(document.activeElement)||!av.matches(':focus-visible'))t=setTimeout(()=>set(false),160)});
+av.addEventListener('click',e=>{if(e.detail&&fine.matches&&isOpen()&&w.matches(':hover'))return;set(!isOpen())});
+av.addEventListener('focus',()=>setTimeout(()=>{if(!esc&&av.matches(':focus-visible'))set(true);esc=0}));
+w.addEventListener('focusout',e=>{if(convo||document.documentElement.classList.contains('cm-on'))return;if(!w.contains(e.relatedTarget)&&!w.matches(':hover'))set(false)});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!e.defaultPrevented&&isOpen()&&!document.documentElement.classList.contains('cm-on')){set(false);if(w.contains(document.activeElement)&&document.activeElement!==av){esc=1;av.focus({preventScroll:true})}}});
+document.addEventListener('pointerdown',e=>{if(convo)return;if(!w.contains(e.target)&&!e.target.closest('#contact-modal'))set(false)});
+w.querySelector('.f-x').addEventListener('click',()=>{set(false);esc=1;av.focus({preventScroll:true})});
+
+/* Contact me starts the chat inside the bubble instead of the overlay */
+async function start(name){if(convo)return;convo=true;w.classList.add('chat','pin');typer.skipAll();await intro;typer.reset();
+ await flows[name](thread)}
+cta.addEventListener('click',e=>{e.preventDefault();e.stopPropagation();set(true);start('contact')});
+window.BillChat={flows,thread,start,open:()=>set(true),close:()=>set(false)};
 })();
 /* Marketplace sliders: while a knob animates, its total follows the knob's position (value = max * distance along the track) */
 (()=>{const sls=[...document.querySelectorAll('.g4-it .sl')];if(!sls.length)return;
