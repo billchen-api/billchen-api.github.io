@@ -658,14 +658,14 @@ function Thread(root){
  const typer=Typer(Face);
  const down=()=>{sc.scrollTop=sc.scrollHeight};
  const t={typer,log,down,
-  async say(text,{who='bot',html=null,type=null}={}){if(who!=='bot'&&log.children.length){const d=document.createElement('div');d.className='f-turn';d.setAttribute('aria-hidden','true');log.appendChild(d)}const m=document.createElement('div');m.className='f-msg '+(who==='bot'?'bot':'me');log.appendChild(m);
+  async say(text,{who='bot',html=null,type=null}={}){if(who!=='bot'&&log.children.length){const d=document.createElement('div');d.className='f-turn';d.dataset.f=root.dataset.cur||'';d.setAttribute('aria-hidden','true');log.appendChild(d)}const m=document.createElement('div');m.dataset.f=root.dataset.cur||'';m.className='f-msg '+(who==='bot'?'bot':'me');log.appendChild(m);
    if(who==='bot'){await sleep(rm()?0:260);const p=document.createElement('p');m.appendChild(p);down();await typer.type(p,text,type||{});if(html){const x=document.createElement('p');x.className='f-more';x.innerHTML=html;m.appendChild(x)}}
    else{m.textContent=text}
    down();return m},
   /* quick replies, returns the picked value */
-  choose(opts){return new Promise(res=>{const row=document.createElement('div');row.className='f-qr';
+  choose(opts,{focus=true}={}){return new Promise(res=>{const row=document.createElement('div');row.className='f-qr';
    opts.forEach(o=>{const b=document.createElement('button');b.type='button';b.textContent=o.label;b.addEventListener('click',()=>{row.remove();res(o.value)});row.appendChild(b)});
-   log.appendChild(row);down();row.querySelector('button').focus({preventScroll:true})})},
+   log.appendChild(row);down();if(focus)row.querySelector('button').focus({preventScroll:true})})},
   /* one answer from the visitor; kind: 'text' | 'email' | 'long' */
   ask({kind='text',label,placeholder='',autocomplete='off'}){return new Promise(res=>{
    const el=kind==='long'?ta:inp;const other=el===ta?inp:ta;other.hidden=true;el.hidden=false;
@@ -719,7 +719,7 @@ const flows={
    let ok=false;try{const r=await fetch('https://api.web3forms.com/submit',{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},
      body:JSON.stringify({access_key:KEY,subject:(mf.elements.subject&&mf.elements.subject.value)||'New message from bill-chen.com',from_name:(mf.elements.from_name&&mf.elements.from_name.value)||'Bill Chen Portfolio',name,email,message,botcheck:card.bot()})});
     const j=await r.json().catch(()=>({}));ok=r.ok&&j.success!==false}catch(_){ok=false}
-   if(ok){card.lock();await t.say(`Thanks, ${first}. Your message is on its way, and I’ll get back to you soon.`);w.classList.add('sent');return}
+   if(ok){card.lock();await t.say(`Thanks, ${first}. Your message is on its way, and I’ll get back to you soon.`);w.classList.add('sent');try{sessionStorage.setItem('bc-chat-sent','1')}catch(_){}return}
    card.busy(false);
    await t.say('Something went wrong and the message didn’t send.',{html:`Please try again, or reach me on <a href="${LI}" target="_blank" rel="noopener">LinkedIn</a>.`});
    await t.choose([{label:'Try again',value:'retry'}])}
@@ -806,8 +806,12 @@ try{const nav=performance.getEntriesByType('navigation')[0];if(nav&&nav.type==='
 let seen=false;try{seen=sessionStorage.getItem(KEYSEEN)==='1'}catch(_){}
 /* t331: used options are kept per tab like the intro (a reload clears them) */
 const KEYUSED='bc-chat-used';
-try{const nav=performance.getEntriesByType('navigation')[0];if(nav&&nav.type==='reload')sessionStorage.removeItem(KEYUSED)}catch(_){}
+/* t335: the thread is kept too, so the chat carries over between the home page and the case studies (same site, same tab) */
+const KEYLOG='bc-chat-log',KEYSENT='bc-chat-sent';
+try{const nav=performance.getEntriesByType('navigation')[0];if(nav&&nav.type==='reload')[KEYUSED,KEYLOG,KEYSENT].forEach(k=>sessionStorage.removeItem(k))}catch(_){}
 let used=[];try{used=JSON.parse(sessionStorage.getItem(KEYUSED)||'[]')}catch(_){used=[]}
+/* a contact form that was left unsent on another page is not carried over, so Contact me is offered again */
+try{if(used.includes('contact')&&sessionStorage.getItem(KEYSENT)!=='1'){used=used.filter(x=>x!=='contact');sessionStorage.setItem(KEYUSED,JSON.stringify(used))}}catch(_){}
 const menuBtns=()=>[...w.querySelectorAll('.f-menu [data-flow],.f-menu .f-cta')];
 const syncMenu=()=>{menuBtns().forEach(b=>{b.hidden=used.includes(b.dataset.flow||'contact')});const m=w.querySelector('.f-menu');if(m)m.hidden=menuBtns().every(b=>b.hidden)};
 const use=name=>{if(!used.includes(name))used.push(name);try{sessionStorage.setItem(KEYUSED,JSON.stringify(used))}catch(_){}syncMenu()};
@@ -830,7 +834,7 @@ bub.addEventListener('click',e=>{if(w.classList.contains('saying')&&!e.target.cl
 let t,esc=0,convo=false;
 const isOpen=()=>w.classList.contains('open');
 const set=o=>{clearTimeout(t);w.classList.toggle('open',o);av.setAttribute('aria-expanded',String(o));
- if(o){showIntro();typer.resume();Face.startBlink()}else{if(w.classList.contains('saying'))typer.pause();Face.stopBlink();Face.talk(false)}};
+ if(o){showIntro();typer.resume();Face.startBlink();if(restored){restored=false;requestAnimationFrame(()=>thread.down())}}else{if(w.classList.contains('saying'))typer.pause();Face.stopBlink();Face.talk(false)}};
 w.addEventListener('pointerenter',e=>{if(e.pointerType==='mouse'||fine.matches&&e.pointerType!=='touch')set(true)});
 w.addEventListener('pointerleave',e=>{if(convo||document.documentElement.classList.contains('cm-on'))return;if(e.pointerType==='touch')return;if(!w.contains(document.activeElement)||!av.matches(':focus-visible'))t=setTimeout(()=>set(false),160)});
 av.addEventListener('click',e=>{if(e.detail&&fine.matches&&isOpen()&&w.matches(':hover'))return;set(!isOpen())});
@@ -845,10 +849,22 @@ w.querySelector('.f-x').addEventListener('click',()=>{set(false);esc=1;av.focus(
 /* t329: any menu item starts the chat; when a reply ends, the other items come back as quick replies */
 let busy=false;
 async function start(name){if(busy||used.includes(name))return;busy=true;convo=true;use(name);w.classList.add('chat','pin');typer.skipAll();await intro;typer.reset();
- try{await flows[name](thread)}finally{busy=false}
+ w.dataset.cur=name;try{await flows[name](thread)}finally{busy=false;delete w.dataset.cur;save()}
  const opts=MENU.filter(o=>!used.includes(o.value));if(opts.length)thread.choose(opts).then(start)}
 w.querySelectorAll('.f-q[data-flow]').forEach(b=>b.addEventListener('click',e=>{e.preventDefault();e.stopPropagation();set(true);start(b.dataset.flow)}));
 cta.addEventListener('click',e=>{e.preventDefault();e.stopPropagation();set(true);start('contact')});
+/* t335: save the thread (without quick replies and without an unsent form) and bring it back on the next page */
+function save(){if(!convo)return;try{const c=thread.log.cloneNode(true);c.querySelectorAll('.f-qr').forEach(x=>x.remove());
+ if(!w.classList.contains('sent'))c.querySelectorAll('[data-f=contact]').forEach(x=>x.remove());c.querySelectorAll('form').forEach(x=>x.remove());
+ sessionStorage.setItem(KEYLOG,c.innerHTML)}catch(_){}}
+addEventListener('pagehide',save);
+let restored=false;
+try{const h=seen&&sessionStorage.getItem(KEYLOG);if(h){const L=thread.log;L.innerHTML=h;
+ /* anything that was still being typed or faded in when the page changed is shown in full */
+ L.querySelectorAll('.un').forEach(u=>{const a=u.previousSibling;if(a)a.textContent+=u.textContent;u.textContent=''});
+ L.querySelectorAll('.f-sn').forEach(x=>x.classList.add('in'));L.querySelectorAll('.pop').forEach(x=>x.classList.remove('pop'));
+ if(L.children.length){convo=true;restored=true;w.classList.add('chat','pin');
+  const opts=MENU.filter(o=>!used.includes(o.value));if(opts.length)thread.choose(opts,{focus:false}).then(start)}}}catch(_){}
 window.BillChat={flows,thread,start,open:()=>set(true),close:()=>set(false)};
 })();
 /* Marketplace sliders: while a knob animates, its total follows the knob's position (value = max * distance along the track) */
